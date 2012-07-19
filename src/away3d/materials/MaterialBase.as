@@ -339,9 +339,9 @@ package away3d.materials
 		{
 			var pass : MaterialPassBase = _passes[index];
 			var enableDepthWrite : Boolean = true;
+			var context : Context3D = stage3DProxy._context3D;
 
 			if (index == _numPasses-1) {
-				var context : Context3D = stage3DProxy._context3D;
 				if (requiresBlending) {
 					enableDepthWrite = false;
 					context.setBlendFactors(_srcBlend, _destBlend);
