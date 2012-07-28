@@ -29,5 +29,15 @@ package away3d.primitives {
 
       _orientation = orientation;
     }
+    /**
+     * The orientation in which the plane lies
+     */
+     public function get orientation():String {
+       return _orientation;
+     }
+     public function set orientation(value:String):void {
+       _orientation = value;
+       invalidateGeometry();
+     }
   }
 }
