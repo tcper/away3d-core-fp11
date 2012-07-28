@@ -3,5 +3,6 @@
 /.project
 /.settings
 /.actionScriptProperties
+/src/org
 *.iml
 out
