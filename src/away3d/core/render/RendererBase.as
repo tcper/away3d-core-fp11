@@ -34,8 +34,6 @@ package away3d.core.render
 		protected var _backgroundAlpha : Number = 1;
 		protected var _shareContext : Boolean = false;
 
-		protected var _swapBackBuffer : Boolean = true;
-
 		protected var _renderTarget : TextureBase;
 		protected var _renderTargetSurface : int;
 
@@ -117,19 +115,6 @@ package away3d.core.render
 		}
 
 		/**
-		 * Indicates whether or not the back buffer should be swapped when rendering is complete.
-		 */
-		public function get swapBackBuffer() : Boolean
-		{
-			return _swapBackBuffer;
-		}
-
-		public function set swapBackBuffer(value : Boolean) : void
-		{
-			_swapBackBuffer = value;
-		}
-
-		/**
 		 * The background color's red component, used when clearing.
 		 *
 		 * @private
@@ -193,8 +178,6 @@ package away3d.core.render
 				if (_stage3DProxy) _stage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate);
 				_stage3DProxy = null;
 				_context = null;
-
-//				_contextIndex = -1;
 				return;
 			}
 			//else if (_stage3DProxy) throw new Error("A Stage3D instance was already assigned!");
@@ -289,11 +272,9 @@ package away3d.core.render
 
 			if ( !_shareContext ) {
 				if( _snapshotRequired && _snapshotBitmapData ) {
-					_context.drawToBitmapData( _snapshotBitmapData );
+					_context.drawToBitmapData(_snapshotBitmapData);
 					_snapshotRequired = false;
 				}
-	
-				if (_swapBackBuffer && !target) _context.present();
 			}
 			_stage3DProxy.scissorRect = null;
 		}
@@ -326,8 +307,6 @@ package away3d.core.render
 		private function onContextUpdate(event : Event) : void
 		{
 			_context = _stage3DProxy.context3D;
-
-//			_contextIndex = _stage3DProxy.stage3DIndex;
 		}
 
 		arcane function get backgroundAlpha() : Number
