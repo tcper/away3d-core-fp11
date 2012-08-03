@@ -36,29 +36,29 @@ package org.pigtracer.lab
     }
 
     private function drawAsset():void {
-      var objParser:OBJParser = new OBJParser();
-      objParser.addEventListener(AssetEvent.ASSET_COMPLETE, assetCompleteHandler);
-      objParser.parseAsync(new headClass());
+//      var objParser:OBJParser = new OBJParser();
+//      objParser.addEventListener(AssetEvent.ASSET_COMPLETE, assetCompleteHandler);
+//      objParser.parseAsync(new headClass());
 
-//      Parsers.enableAllBundled();
-//
-//      var loader:Loader3D = new Loader3D();
-//      loader.addEventListener(AssetEvent.ASSET_COMPLETE, assetCompleteHandler);
-//      loader.load(new URLRequest("monkey.obj"));
+      Parsers.enableAllBundled();
+
+      var loader:Loader3D = new Loader3D();
+      loader.addEventListener(AssetEvent.ASSET_COMPLETE, assetCompleteHandler);
+      loader.load(new URLRequest("monkey.obj"));
     }
 
     private function assetCompleteHandler(event:AssetEvent):void
     {
       if (event.asset.assetType == AssetType.MESH) {
-        //initializeHeadModel(event.asset as Mesh);
-        initializeWireframe(event.asset as Mesh);
+        initializeHeadModel(event.asset as Mesh);
+//        initializeWireframe(event.asset as Mesh);
       }
     }
 
     private function initializeWireframe(model:Mesh):void {
       var wm:WireframeMesh = SegmentMapGenerator.generateWireframe(model);
       wm.scale(100);
-
+      trace(model.subMeshes[0].vertexData.length);
       scene.addChild(wm);
     }
 
@@ -89,6 +89,13 @@ package org.pigtracer.lab
       // enableMeshMouseListeners( model );
       model.scale(100);
       view.scene.addChild(model);
+
+
+      trace(model.subMeshes[0].vertexData.length);
+
+//      var wm:WireframeMesh = SegmentMapGenerator.generateWireframe(model);
+//      wm.scale(100);
+//      scene.addChild(wm);
     }
 
     private function drawCube():void {
