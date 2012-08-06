@@ -1,4 +1,5 @@
 package org.pigtracer.lab {
+  import flash.utils.ByteArray;
   import flash.events.Event;
   import com.bit101.utils.MinimalConfigurator;
   import com.bit101.components.Component;
@@ -103,6 +104,8 @@ package org.pigtracer.lab {
       var bitmapTexture:BitmapTexture = new BitmapTexture(bmd);
       var textureMaterial:TextureMaterial = new TextureMaterial(bitmapTexture);
       textureMaterial.lightPicker = lightPicker;
+      var ba:ByteArray;
+      ba.bytesAvailable
 
 
       model.material = textureMaterial;
