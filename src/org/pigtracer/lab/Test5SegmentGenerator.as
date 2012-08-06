@@ -1,5 +1,8 @@
-package org.pigtracer.lab
-{
+package org.pigtracer.lab {
+  import flash.events.Event;
+  import com.bit101.utils.MinimalConfigurator;
+  import com.bit101.components.Component;
+  import away3d.materials.utils.WireframeMapGenerator;
   import away3d.loaders.parsers.Parsers;
   import flash.net.URLRequest;
   import away3d.loaders.Loader3D;
@@ -22,11 +25,37 @@ package org.pigtracer.lab
   public class Test5SegmentGenerator extends BaseScene
   {
     [Embed(source="head.obj", mimeType="application/octet-stream")]
-    private var headClass : Class;
+    private var headClass:Class;
+    private var config:MinimalConfigurator;
+    private var wm:WireframeMesh;
 
     public function Test5SegmentGenerator()
     {
       super();
+
+      initUI();
+    }
+
+    private function initUI():void
+    {
+      Component.initStage(stage);
+
+      var xml:XML = <comps>
+                      <Label id="myLabel" x="10" y="10" text="waiting..."/>
+                      <PushButton id="go" x="10" y="40" label="go" event="click:onClickGo"/>
+                      <PushButton id="back" x="10" y="60" label="back" event="click:onClickBack"/>
+                    </comps>;
+
+      config = new MinimalConfigurator(this);
+      config.parseXML(xml);
+    }
+
+    public function onClickGo(event:Event):void {
+      wm.go();
+    }
+
+    public function onClickBack(event:Event):void {
+      wm.back();
     }
 
     override protected function initObjects():void
@@ -50,15 +79,20 @@ package org.pigtracer.lab
     private function assetCompleteHandler(event:AssetEvent):void
     {
       if (event.asset.assetType == AssetType.MESH) {
-        initializeHeadModel(event.asset as Mesh);
-//        initializeWireframe(event.asset as Mesh);
+//        initializeHeadModel(event.asset as Mesh);
+        initializeWireframe(event.asset as Mesh);
       }
     }
 
     private function initializeWireframe(model:Mesh):void {
-      var wm:WireframeMesh = SegmentMapGenerator.generateWireframe(model);
+      wm = SegmentMapGenerator.generateWireframe(model);
       wm.scale(100);
-      trace(model.subMeshes[0].vertexData.length);
+
+//      var cube:CubeGeometry = new CubeGeometry();
+//      var mesh:Mesh = new Mesh(cube);
+//      wm = SegmentMapGenerator.generateWireframe(mesh);
+
+      //trace(model.subMeshes[0].vertexData.length);
       scene.addChild(wm);
     }
 
@@ -86,6 +120,7 @@ package org.pigtracer.lab
 
       // Apply mouse interactivity.
       model.mouseEnabled = model.mouseChildren = model.shaderPickingDetails = true;
+
       // enableMeshMouseListeners( model );
       model.scale(100);
       view.scene.addChild(model);

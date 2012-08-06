@@ -1,5 +1,6 @@
-package org.pigtracer.lab.primitive
-{
+package org.pigtracer.lab.primitive {
+  import flash.trace.Trace;
+  import away3d.arcane;
   import away3d.primitives.LineSegment;
   import flash.geom.Vector3D;
   import away3d.primitives.data.Segment;
@@ -19,8 +20,8 @@ package org.pigtracer.lab.primitive
     //==========================================================================
     private var edges:Vector.<Edge> = new Vector.<Edge>();
     public function drawConnects(vertices:Vector.<Number>, indices:Vector.<uint>):void {
+      
       const len:int = indices.length;
-
       for (var i:int = 0; i < len; i+=3) {
         var indexa:uint = indices[i];
         var indexb:uint = indices[i+1];
@@ -28,18 +29,29 @@ package org.pigtracer.lab.primitive
 
         var triangleEdges:Array = createEdge(indexa, indexb, indexc);
 
+        //-----
+//        var v:Vector3D = getVertex(vertices, i);
+//        trace(i/3, v);
+        //-----
+
         for (var j:int = 0; j < 3; j++) {
           var ie:Array = triangleEdges[j];
 
           var ia:uint = ie[0];
           var ib:uint = ie[1];
+          //trace("[WireframeMesh/ia ib]", ia, ib);
 
-          /*if (!checkUnique(ia, ia)) {
+          if (!checkUnique(ia, ib)) {
             continue;
-          }*/
+          }
 
           var va:Vector3D = getVertex(vertices, ia);
           var vb:Vector3D = getVertex(vertices, ib);
+          
+          if (!checkVec(va, vb)) {
+            continue;
+          }
+          
           edges.push(new Edge(va, vb, ia, ib));
         }
       }
@@ -48,9 +60,34 @@ package org.pigtracer.lab.primitive
 
       for (i = 0; i < edgeLen; i++) {
         var edge:Edge = edges[i];
+        //trace("[WireframeMesh/drawConnects]", i, edge.indices[0], edge.indices[1]);
+
         //addSegment(new LineSegment(edge.vertices[0], edge.vertices[1]))
-        addSegment(new LineSegment(edge.vertices[0], edge.vertices[1], 0xFF0000, 0xFF0000));
+        var lse:LineSegmentExtra = new LineSegmentExtra(edge.vertices[0], edge.vertices[1], 0xFF0000, 0xFF0000);
+        lse.target = new LineData(generateRandom(), generateRandom(), 0xFF0000);
+        addSegment(lse);
       }
+    }
+
+
+    public function go():void {
+      const len:int = _segments.length;
+      for (var i:int = 0; i < len; i++) {
+        var lse:LineSegmentExtra = _segments[i] as LineSegmentExtra;
+        lse.go();
+      }
+    }
+
+    public function back():void {
+      const len:int = _segments.length;
+      for (var i:int = 0; i < len; i++) {
+        var lse:LineSegmentExtra = _segments[i] as LineSegmentExtra;
+        lse.back();
+      }
+    }
+
+    private function generateRandom() : Vector3D {
+      return new Vector3D(Math.random()*100 - 50, Math.random()*100 - 50, Math.random()*100 - 50);
     }
 
     private function getVertex(source:Vector.<Number>, index:int):Vector3D {
@@ -60,7 +97,24 @@ package org.pigtracer.lab.primitive
     private function createEdge(a:int, b:int, c:int):Array {
       return [[a,b], [b,c], [c,a]];
     }
-
+    
+    private function checkVec(v1:Vector3D, v2:Vector3D):Boolean {
+      const len:int = edges.length;
+      for (var i:int = 0; i < len; i++) {
+        var edge:Edge = edges[i];
+        var ev1:Vector3D = edge.vertices[0];
+        var ev2:Vector3D = edge.vertices[1];
+        if (ev1.equals(v1) && ev2.equals(v2)) {
+          return false;
+        }
+        
+        if (ev2.equals(v1) && ev1.equals(v2)) {
+          return false;
+        }
+      }
+      return true;
+    }
+    
     private function checkUnique(a:uint, b:uint):Boolean {
       const len:int = edges.length;
       for (var i:int = 0; i < len; i++) {
@@ -71,6 +125,9 @@ package org.pigtracer.lab.primitive
       }
       return true;
     }
+
+
+
   }
 }
 
@@ -88,11 +145,12 @@ class Edge {
   }
 
   public function check(a:uint, b:uint):Boolean {
-    if (indices[0] == a && indices[1] == b) {
+
+    if ((indices[0] == a) && (indices[1] == b)) {
       return true;
     }
 
-    if (indices[1] == b && indices[0] == a) {
+    if ((indices[0] == b) && (indices[1] == a)) {
       return true;
     }
     return false;
