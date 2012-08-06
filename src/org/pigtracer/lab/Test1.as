@@ -32,6 +32,7 @@ package org.pigtracer.lab {
     public function Test1() {
       super();
     }
+
     [Embed(source="20127611554625.jpg")]
     private var embeddedClass : Class;
     //==========================================================================
