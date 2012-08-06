@@ -88,11 +88,6 @@ package org.pigtracer.lab {
       wm = SegmentMapGenerator.generateWireframe(model);
       wm.scale(100);
 
-//      var cube:CubeGeometry = new CubeGeometry();
-//      var mesh:Mesh = new Mesh(cube);
-//      wm = SegmentMapGenerator.generateWireframe(mesh);
-
-      //trace(model.subMeshes[0].vertexData.length);
       scene.addChild(wm);
     }
 
