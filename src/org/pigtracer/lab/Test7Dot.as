@@ -1,4 +1,7 @@
 package org.pigtracer.lab {
+  import flash.geom.Matrix3D;
+  import away3d.core.base.Geometry;
+  import flash.geom.Vector3D;
   import flash.events.Event;
   import away3d.materials.TextureMaterial;
   import away3d.entities.Mesh;
@@ -37,15 +40,29 @@ package org.pigtracer.lab {
       texture = new BitmapTexture(createBitmapData());
       material = new TextureMaterial(texture, true, true);
       material.lightPicker = lightPicker;
+      material.bothSides = true;
 
-      var geom:PlaneGeometry = new PlaneGeometry(16, 16, 2, 2, true, true);
+      var geom:PlaneGeometry = new PlaneGeometry(16, 16, 1, 1, true);
+
+      /*var plane:Mesh = new Mesh(geom, material);
+      plane.rotationX = 90;
+      mesh = new Mesh(new Geometry());
+      mesh.addChild(plane);*/
       mesh = new Mesh(geom, material);
+
       scene.addChild(mesh);
     }
 
     override protected function enterFrameHandler(event : Event) : void {
       super.enterFrameHandler(event);
-      mesh.lookAt(camera.position);
+
+
+      //var matrix:Matrix3D = new Matrix3D();
+      //matrix.position = camera.position;
+      //matrix.appendRotation(90, Vector3D.X_AXIS);
+      //var p:Vector3D = matrix.position;
+
+      //mesh.lookAt(p);
     }
 
     private function createBitmapData():BitmapData {

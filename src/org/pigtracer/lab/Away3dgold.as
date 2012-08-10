@@ -53,7 +53,7 @@ package org.pigtracer.lab {
   import away3d.events.Scene3DEvent;
   import away3d.events.ShadingMethodEvent;
   import away3d.events.Stage3DEvent;
-  import away3d.events.StateTransitionEvent;
+
   import away3d.library.assets.AssetType;
   import away3d.library.assets.BitmapDataAsset;
   import away3d.library.assets.IAsset;

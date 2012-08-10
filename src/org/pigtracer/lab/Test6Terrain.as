@@ -61,7 +61,8 @@ package org.pigtracer.lab
       _offsetPoint.x += 1;
       _offsetPoint.y -= 1;
       terrainBitmap.perlinNoise(50, 50, 1, _seed, true, false, 7, true, [_offsetPoint]);
-      elevation.updateImplicitVisibility();
+      //elevation.updateImplicitVisibility();
+      elevation.up();
     }
 
   }

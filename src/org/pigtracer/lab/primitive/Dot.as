@@ -26,6 +26,7 @@ package org.pigtracer.lab.primitive
     public var color:uint;
     public var size:int;
     public var alpha:Number;
+    public var index:int;
 
     public function Dot(pos:Vector3D, color:uint = 0xFFFFFF, size:int = 1) {
       super();
