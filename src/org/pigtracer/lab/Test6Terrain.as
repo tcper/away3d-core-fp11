@@ -1,5 +1,6 @@
 package org.pigtracer.lab
 {
+  import away3d.debug.Debug;
   import away3d.utils.Cast;
   import away3d.materials.TextureMaterial;
   import away3d.textures.BitmapTexture;
@@ -26,6 +27,7 @@ package org.pigtracer.lab
   {
     public function Test6Terrain()
     {
+      Debug.active = true;
       super();
       initBitmap();
     }
@@ -59,7 +61,8 @@ package org.pigtracer.lab
       _offsetPoint.x += 1;
       _offsetPoint.y -= 1;
       terrainBitmap.perlinNoise(50, 50, 1, _seed, true, false, 7, true, [_offsetPoint]);
-      elevation.updateImplicitVisibility();
+      //elevation.updateImplicitVisibility();
+      elevation.up();
     }
 
   }
