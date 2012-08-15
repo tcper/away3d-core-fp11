@@ -186,7 +186,7 @@ package org.pigtracer.lab {
       }
 
       // Move light with camera.
-      pointLight.position = camera.position;
+      //pointLight.position = camera.position;
 
       // Render 3D.
       view.render();
