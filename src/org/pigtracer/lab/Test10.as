@@ -76,7 +76,7 @@ package org.pigtracer.lab
         container.addChild(mesh);
       }
 
-      var planeGeom:PlaneGeometry = new PlaneGeometry(5000, 5000, 8, 8, true, true);
+      var planeGeom:PlaneGeometry = new PlaneGeometry(10000, 10000, 8, 8, true, true);
       var bitmap:BitmapData = new BitmapData(16, 16, false, 0x00FF00);
       var bitmapTexure:BitmapTexture = new BitmapTexture(bitmap);
       var bitmapMaterial:TextureMaterial = new TextureMaterial(bitmapTexure);
@@ -112,8 +112,8 @@ package org.pigtracer.lab
 
 //      var xoffset:Number = mouseX - stage.stageWidth/2;
 //      var yoffset:Number = mouseY - stage.stageHeight/2;
-      var rateX:Number = (mouseX-(stage.stageWidth/2-2))*0.1//+45/2;
-      var rateY:Number = (mouseY-(stage.stageHeight/2-2))*0.1//+45/2;
+      var rateX:Number = (mouseX-(stage.stageWidth/2-2))*0.05//+45/2;
+      var rateY:Number = (mouseY-(stage.stageHeight/2-2))*0.05//+45/2;
 
 
       container.rotationY += (rateX-container.rotationY)*0.1;
