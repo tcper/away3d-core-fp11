@@ -191,8 +191,8 @@ package org.pigtracer.lab
         cameraController.tiltAngle += tiltIncrement;
         cameraController.distance += distanceIncrement;
 
-        trace(cameraController.panAngle, cameraController.tiltAngle, cameraController.distance);
-        trace(camera.transform.rawData);
+//        trace(cameraController.panAngle, cameraController.tiltAngle, cameraController.distance);
+//        trace(camera.transform.rawData);
       }
 
       // Move light with camera.

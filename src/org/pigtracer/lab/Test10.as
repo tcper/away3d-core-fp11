@@ -1,5 +1,10 @@
 package org.pigtracer.lab
 {
+  import org.pigtracer.lab.primitive.Path;
+  import org.pigtracer.lab.primitive.LineParser;
+  import flash.geom.Matrix3D;
+  import flash.display.Graphics;
+  import flash.display.Sprite;
   import away3d.containers.ObjectContainer3D;
   import com.greensock.TweenLite;
   import flash.events.Event;
@@ -25,6 +30,12 @@ package org.pigtracer.lab
     private var material:ColorMaterial;
     private var pathAnimator:PathAnimator;
     private var container:ObjectContainer3D;
+
+    private var follower:Sprite;
+    private var sphere:WireframeSphere;
+
+    [Embed(source="line.obj", mimeType="application/octet-stream")]
+    private var embeddedClass : Class;
 
     public function Test10()
     {
@@ -56,9 +67,6 @@ package org.pigtracer.lab
       pointLight.fallOff = 500;
       pointLight.ambient = 0xa0a0c0;
       pointLight.ambient = .3;
-
-      trace(pointLight.position);
-
 
     }
     override protected function initObjects():void
@@ -92,7 +100,7 @@ package org.pigtracer.lab
       planeMesh.rotationX = 90;
       container.addChild(planeMesh);
 
-      var sphere:WireframeSphere = new WireframeSphere(10, 10, 10, 0xFF0000);
+      sphere = new WireframeSphere(10, 10, 10, 0xFF0000);
       sphere.position = pointLight.position;
       container.addChild(sphere);
 
@@ -105,6 +113,18 @@ package org.pigtracer.lab
       pathAnimator = new PathAnimator(cubicPath, camera);
 
       TweenLite.to(pathAnimator, 2, {t:1});
+
+      follower = new Sprite();
+      var g:Graphics = follower.graphics;
+      g.beginFill(0x0);
+      g.drawRect(0, 0, 200, 200);
+      g.endFill();
+      addChild(follower);
+
+      var lineParser:LineParser = new LineParser();
+      var p:Path = lineParser.parse(new embeddedClass());
+      p.scale(100);
+      scene.addChild(p);
     }
 
     override protected function enterFrameHandler(event:Event):void
@@ -112,12 +132,15 @@ package org.pigtracer.lab
 
 //      var xoffset:Number = mouseX - stage.stageWidth/2;
 //      var yoffset:Number = mouseY - stage.stageHeight/2;
-      var rateX:Number = (mouseX-(stage.stageWidth/2-2))*0.05//+45/2;
-      var rateY:Number = (mouseY-(stage.stageHeight/2-2))*0.05//+45/2;
+      var rateX:Number = (mouseX-stage.stageWidth/2)*0.05;//+45/2;
+      var rateY:Number = (mouseY-stage.stageHeight/2)*0.05;//+45/2;
 
 
       container.rotationY += (rateX-container.rotationY)*0.1;
       container.rotationX += (-rateY-container.rotationX)*0.1;
+
+      follower.x =stage.stageWidth/2-sphere.scenePosition.x;
+      follower.y =stage.stageHeight/2-sphere.scenePosition.y;
 
       camera.lookAt(new Vector3D());
       view.render();
