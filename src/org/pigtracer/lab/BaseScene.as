@@ -43,7 +43,7 @@ package org.pigtracer.lab
     private var panSpeed:Number = 4;
     private var distanceSpeed:Number = 4;
     private var tiltIncrement:Number = 0;
-    private var panIncrement:Number = 0;
+    protected var panIncrement:Number = 0;
     private var distanceIncrement:Number = 0;
     //==========================================================================
     //  Private methods
@@ -58,8 +58,8 @@ package org.pigtracer.lab
     }
 
     protected function initController():void {
-      //cameraController = new HoverController(camera, null, 180, 20, 1000, 5);
-      cameraController = new HoverController(camera, null, 30, 180, 1000, 5);
+      cameraController = new HoverController(camera, null, 180, 20, 2000, 5);
+      //cameraController = new HoverController(camera, null, 30, 180, 1000, 5);
       var m:Matrix3D = new Matrix3D(new <Number>[-0.9933727383613586,-8.684340002673707e-8,0.1149372085928917,0,-0.019810523837804794,0.9850342273712158,-0.17121653258800507,0,-0.1132170706987381,-0.17235881090164185,-0.9785061478614807,0,114.4997787475586,174.31149291992188,989.5927124023438,1]);
       camera.transform = m;
     }
@@ -77,6 +77,12 @@ package org.pigtracer.lab
 
       addChild(view);
     }
+    private function onResize(event:Event = null):void
+    {
+      view.width = stage.stageWidth;
+      view.height = stage.stageHeight;
+    }
+    
     protected function initLights():void {
       pointLight = new PointLight();
       scene.addChild(pointLight);
@@ -150,11 +156,6 @@ package org.pigtracer.lab
           distanceIncrement = -distanceSpeed;
           break;
       }
-    }
-
-    protected function onResize(event:Event = null):void {
-      view.width = stage.stageWidth;
-      view.height = stage.stageHeight;
     }
 
     protected function onMouseUp(event:MouseEvent):void {

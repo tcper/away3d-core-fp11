@@ -674,6 +674,11 @@ package org.pigtracer.lab {
       stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
       onResize();
     }
+    private function onResize(event:Event = null):void
+    {
+      view.width = stage.stageWidth;
+      view.height = stage.stageHeight;
+    }
 
     /**
      * Navigation and render loop
@@ -761,15 +766,6 @@ package org.pigtracer.lab {
       stage.removeEventListener(Event.MOUSE_LEAVE, onStageMouseLeave);
     }
 
-    /**
-     * stage listener for resize events
-     */
-    private function onResize(event:Event = null):void
-    {
-      view.width = stage.stageWidth;
-      view.height = stage.stageHeight;
-      awayStats.x = stage.stageWidth - awayStats.width;
-    }
 
     /**
      * Mouse up listener for navigation

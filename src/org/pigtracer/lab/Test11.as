@@ -1,5 +1,7 @@
 package org.pigtracer.lab
 {
+  import away3d.materials.lightpickers.StaticLightPicker;
+  import away3d.lights.PointLight;
   import org.pigtracer.lab.primitive.Line;
   import away3d.paths.IPathSegment;
   import away3d.animators.PathAnimator;
@@ -36,6 +38,8 @@ package org.pigtracer.lab
 
     [Embed(source="curve.obj", mimeType="application/octet-stream")]
     private var embeddedClass : Class;
+    
+    private var p1:PointLight;
 
     public function Test11()
     {
@@ -47,7 +51,7 @@ package org.pigtracer.lab
     {
       super.initMaterials();
 
-      pointLight.z = 300;
+      pointLight.y = 300;
       pointLight.castsShadows = true;
       // maximum, small scene
       pointLight.shadowMapper.depthMapSize = 1024;
@@ -55,10 +59,20 @@ package org.pigtracer.lab
       pointLight.color = 0xffffff;
       pointLight.diffuse = 1;
       pointLight.specular = 1;
-      pointLight.radius = 400;
+      //pointLight.radius = 400;
       pointLight.fallOff = 500;
       pointLight.ambient = 0xa0a0c0;
       pointLight.ambient = .3;
+      
+      p1 = new PointLight();
+      p1.y = 300;
+      
+      p1.fallOff = 400;
+      p1.color = 0xffffff;
+      scene.addChild(p1);
+      
+      lightPicker.lights = [p1];
+      
     }
 
     override protected function initObjects():void
@@ -68,7 +82,7 @@ package org.pigtracer.lab
 
       var union:CubeUnion = new CubeUnion();
       union.material.lightPicker = lightPicker;
-      union.z = 100;
+      union.y = 100;
       container.addChild(union);
 
       var planeGeom:PlaneGeometry = new PlaneGeometry(10000, 10000, 8, 8, true, true);
@@ -84,7 +98,7 @@ package org.pigtracer.lab
       bitmapMaterial.bothSides = true;
 
       var planeMesh:Mesh = new Mesh(planeGeom, bitmapMaterial);
-      planeMesh.rotationX = 90;
+      //planeMesh.rotationX = 90;
       container.addChild(planeMesh);
 
       var list:Vector.<Vector3D> = new <Vector3D>[new Vector3D(0,0,0),
@@ -109,7 +123,7 @@ package org.pigtracer.lab
       pathAnimator = new PathAnimator(cubicPath, camera);
 
       //TweenLite.to(pathAnimator, 2, {t:1, onComplete:camComplete});
-      TweenLite.to(pathAnimator, 1, {t:1, onComplete:comp1});
+      //TweenLite.to(pathAnimator, 1, {t:1, onComplete:comp1});
 
 
 
