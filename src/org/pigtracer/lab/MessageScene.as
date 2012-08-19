@@ -21,7 +21,7 @@ package org.pigtracer.lab {
     public var bgMaterial:TextureMaterial;
     public var colorMaterial:ColorMaterial;
     
-    private var meshList:Vector.<Mesh> = new Vector.<Mesh>();
+    public var meshList:Vector.<Mesh> = new Vector.<Mesh>();
     private var lineList:Vector.<LineExtened> = new Vector.<LineExtened>();
     
     public function MessageScene() {
@@ -48,7 +48,7 @@ package org.pigtracer.lab {
     }
     
     private function initBG() : void {
-      var geom:PlaneGeometry = new PlaneGeometry(1000, 1000, 8, 8);
+      var geom:PlaneGeometry = new PlaneGeometry(3000, 3000, 8, 8);
       var bitmapData:BitmapData = new BitmapData(16, 16, false, 0xFFFFFF);
       var texture:BitmapTexture = new BitmapTexture(bitmapData);
       bgMaterial = new TextureMaterial(texture);
@@ -69,8 +69,9 @@ package org.pigtracer.lab {
           var start:Vector3D = meshList[i-1].position.add(new Vector3D(0, 120));
           var end:Vector3D = meshList[i].position.add(new Vector3D(0, 120));
           var temp:Vector3D = end.subtract(start);
-          temp.x = start.x;
+          temp.x *= Math.random();
           temp.y *= Math.random();
+          temp.y += 500;
           temp.z *= Math.random();
           var middle:Vector3D = start.add(temp);
           var path:QuadraticPath = new QuadraticPath(new <Vector3D>[start, middle, end]);
