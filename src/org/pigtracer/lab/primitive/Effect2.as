@@ -51,6 +51,7 @@ package org.pigtracer.lab.primitive {
         target.y += 100;
         var data:MeshData = new MeshData(i, origin, target);
         mesh.data = data;
+        mesh.position = data.origin;
         
         master.addChild(mesh);
         meshList.push(mesh);
