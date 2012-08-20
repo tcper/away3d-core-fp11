@@ -1,4 +1,5 @@
 package org.pigtracer.lab.primitive {
+  import org.pigtracer.lab.managers.LightsManager;
   import away3d.containers.ObjectContainer3D;
   import away3d.entities.Mesh;
   import away3d.events.Scene3DEvent;
@@ -24,19 +25,19 @@ package org.pigtracer.lab.primitive {
       super();
     }
 
-    
+
     public var bgMaterial:TextureMaterial;
     public var colorMaterial:ColorMaterial;
-    
-    
+
+
     public var pointLight:PointLight;
     public var lightPicker:StaticLightPicker;
-    
+
     private var cubePos:Vector.<Vector3D> = new <Vector3D>[new Vector3D(0, -50, -300),
-                                                           new Vector3D(Math.sqrt(3)*150, -50, 150), 
+                                                           new Vector3D(Math.sqrt(3)*150, -50, 150),
                                                            new Vector3D(-Math.sqrt(3)*150, -50, 150)];
     public var meshList:Vector.<Mesh> = new Vector.<Mesh>();
-    
+
     public function init():void {
       initLight();
       initBG();
@@ -47,20 +48,20 @@ package org.pigtracer.lab.primitive {
     private function startMotion():void {
       const N:int = meshList.length;
       for (var i:int = 0; i < N; i++) {
-        TweenLite.to(meshList[i], 0.5, {delay:i*0.5, y:100});
+        TweenLite.to(meshList[i], 0.5, {delay:2 + i*0.5, y:100});
       }
     }
 
     private function initCube():void {
       const N:int = cubePos.length;
-      var geomList:Array = [new CubeGeometry(50, 80, 50, 3, 3, 3), 
-                            new CubeGeometry(80, 50, 50, 3, 3, 3), 
+      var geomList:Array = [new CubeGeometry(50, 80, 50, 3, 3, 3),
+                            new CubeGeometry(80, 50, 50, 3, 3, 3),
                             new CubeGeometry(50, 50, 80, 3, 3, 3)];
-                            
-      var matList:Array = [new ColorMaterial(ColorConst.MAIN_PART_C), 
-                           new ColorMaterial(ColorConst.MAIN_PART_B), 
+
+      var matList:Array = [new ColorMaterial(ColorConst.MAIN_PART_C),
+                           new ColorMaterial(ColorConst.MAIN_PART_B),
                            new ColorMaterial(ColorConst.MAIN_PART_A)];
-                           
+
       for (var i:int = 0; i < N; i++) {
         var mat:ColorMaterial = matList[i];
         mat.lightPicker = lightPicker;
@@ -75,7 +76,7 @@ package org.pigtracer.lab.primitive {
     private function initLight():void {
       pointLight = new PointLight();
       pointLight.y = 700;
-      
+
       pointLight.castsShadows = true;
       pointLight.shadowMapper.depthMapSize = 1024;
       pointLight.color = 0xffffff;
@@ -85,9 +86,12 @@ package org.pigtracer.lab.primitive {
       pointLight.fallOff = 3000;
       pointLight.ambient = 0xa0a0c0;
       pointLight.ambient = .3;
-      
+
       lightPicker = new StaticLightPicker([pointLight]);
       scene.addChild(pointLight);
+
+      LightsManager.getInstance().mainMessageLights.light = pointLight;
+      LightsManager.getInstance().mainMessageLights.lightPicker = lightPicker;
     }
 
     private function initBG():void {
@@ -99,12 +103,12 @@ package org.pigtracer.lab.primitive {
       bgMaterial.shadowMethod = new HardShadowMapMethod(pointLight);
       bgMaterial.specular = .25;
       bgMaterial.gloss = 20;
-      
+
       colorMaterial = new ColorMaterial(0x00FF00);
       colorMaterial.lightPicker = lightPicker;
 
       var mesh:Mesh = new Mesh(geom, bgMaterial);
-      
+
       addChild(mesh);
     }
 

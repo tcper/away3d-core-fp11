@@ -76,6 +76,7 @@ package org.pigtracer.lab {
           var middle:Vector3D = start.add(temp);
           var path:QuadraticPath = new QuadraticPath(new <Vector3D>[start, middle, end]);
           var newList:Vector.<Vector3D> = new Vector.<Vector3D>();
+          
           for (var j:int = 0; j < 100; j++) {
             var t1:Number = j/100;
             var segment:IPathSegment = path.segments[0];

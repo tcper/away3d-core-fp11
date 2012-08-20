@@ -15,6 +15,7 @@ package org.pigtracer.lab {
     public function AnimateLine() {
       super();
     }
+    private var line:LineExtened;
 
     override protected function initObjects():void {
       super.initObjects();
@@ -22,17 +23,22 @@ package org.pigtracer.lab {
                                                   new Vector3D(1000, 0, 0),
                                                   new Vector3D(0, 500, 0)];
       var cubicPath:QuadraticPath = new QuadraticPath(list);
-      
+
       var newList:Vector.<Vector3D> = new Vector.<Vector3D>();
       for (var i:int = 0; i < 100; i++) {
         var t1:Number = i/100;
         var segment:IPathSegment = cubicPath.segments[0];
         newList.push(segment.getPointOnSegment(t1));
       }
-      
-      var line:LineExtened = new LineExtened(newList, 0, 0xFFFFFF, 0x00FF00, 10, 1);
+
+      line = new LineExtened(newList, 0, 0xFFFFFF, 0x00FF00, 10, 1);
       scene.addChild(line);
-      TweenLite.to(line, 1, {t:1,ease:Quint.easeIn});
+      TweenLite.to(line, 1, {t:1, ease:Quint.easeIn, onComplete:lineComplete});
+    }
+
+    private function lineComplete():void
+    {
+      TweenLite.to(line, 1, {t:0, ease:Quint.easeIn});
     }
 
   }

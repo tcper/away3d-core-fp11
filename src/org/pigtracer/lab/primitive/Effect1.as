@@ -1,4 +1,5 @@
 package org.pigtracer.lab.primitive {
+  import org.pigtracer.lab.interfaces.IEffect;
   import com.greensock.TweenLite;
   import away3d.paths.IPath;
   import away3d.paths.IPathSegment;
@@ -9,7 +10,7 @@ package org.pigtracer.lab.primitive {
   /**
    * @author loki
    */
-  public class Effect1 extends ObjectContainer3D implements IUpdate{
+  public class Effect1 extends ObjectContainer3D implements IUpdate, IEffect{
     public function Effect1() {
       super();
       init();
@@ -18,48 +19,47 @@ package org.pigtracer.lab.primitive {
     private var lineList:Array = [];
     private var tweenList:Array = [];
 
-    public function start():void {
+    public function show():void {
       const N:int = lineList.length;
       for (var i:int = 0; i < N; i++) {
         var line:LineExtened = lineList[i];
         var tweenLite:TweenLite = tweenList[i];
-        if (!tweenLite) {          
+        if (!tweenLite) {
           tweenList.push(TweenLite.to(line, 0.5, {t:1, delay:i/10}));
         } else {
           tweenLite.play();
         }
       }
     }
-    
-    public function back():void {
-      const N:int = tweenList.length;
+
+    public function hide():void {
+      const N:int = lineList.length;
       if (N <= 0) {
         return;
       }
-      
+
       for (var i:int = 0; i < N; i++) {
-        var tweenLite:TweenLite = tweenList[i];
-        trace(tweenLite);
-        tweenLite.reverse(false);
+        var line:LineExtened = lineList[i];
+        tweenList.push(TweenLite.to(line, 0.5, {t:0, delay:i/10}));
       }
     }
 
-    
+
     private function init():void {
       for (var i:int = 0; i < 20; i++) {
         var path:IPath = generateQuadCurve();
-        
+
         var newList:Vector.<Vector3D> = new Vector.<Vector3D>();
         for (var j:int = 0; j < 100; j++) {
           var t1:Number = j / 100;
           var segment:IPathSegment = path.segments[0];
           newList.push(segment.getPointOnSegment(t1));
         }
-        
+
         var color:uint = getColor();
-        
+
         var line:LineExtened = new LineExtened(newList, 0, color, color, 5, 5);
-        
+
         lineList.push(line);
         addChild(line);
       }
@@ -83,7 +83,7 @@ package org.pigtracer.lab.primitive {
       var path:QuadraticPath = new QuadraticPath(list);
       return path;
     }
-    
+
     private function genRan(scale:int, base:int, max:int = int.MAX_VALUE):Number {
       var temp:Number;
       if (base == 0) {
