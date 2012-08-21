@@ -1,5 +1,12 @@
 package org.pigtracer.lab.primitive
 {
+  import org.pigtracer.lab.events.SceneEvent;
+  import flash.events.MouseEvent;
+  import org.pigtracer.lab.data.Effect3DetailBitmap;
+  import flash.display.Sprite;
+  import flash.display.DisplayObjectContainer;
+  import flash.events.TimerEvent;
+  import flash.utils.Timer;
   import away3d.events.MouseEvent3D;
   import away3d.filters.BloomFilter3D;
   import com.greensock.TweenLite;
@@ -16,19 +23,77 @@ package org.pigtracer.lab.primitive
    * @author loki
    */
   public class Effect3 extends ObjectContainer3D implements IEffect, IUpdate{
-    public function Effect3(view:View3D) {
+    public function Effect3(view:View3D, container:DisplayObjectContainer) {
+      this.container = container;
+      this.view = view;
       super();
       init();
     }
 
     private const N:int = 10;
+    private var container:DisplayObjectContainer;
     private var meshList:Vector.<MeshWithData> = new Vector.<MeshWithData>();
     private var filters:Array;
+    private var timer:Timer = new Timer(4000, 1);
+
+    private var view:View3D;
+    private var detailButton:Sprite;
+
+    //----------------------------------
+    //  listener
+    //----------------------------------
+    private var _listener:MainCubeListener;
+    public function get listener():MainCubeListener {
+      return _listener;
+    }
+    public function set listener(value:MainCubeListener):void {
+      _listener = value;
+      _listener.sceneDispatcher.addEventListener(SceneEvent.CHANGE_SCENE, sceneChangeHandler);
+    }
+
+    private function sceneChangeHandler(event:SceneEvent):void
+    {
+      TweenLite.to(detailButton, 1, {y:container.stage.stageHeight - detailButton.height});
+    }
 
     private function init():void
     {
       initCubes();
       initFilter();
+      initButtons();
+      visible = false;
+    }
+
+    private function initButtons():void
+    {
+      var data:Effect3DetailBitmap = new Effect3DetailBitmap();
+      detailButton = data.detailButton;
+      detailButton.x = container.stage.stageWidth - detailButton.width;
+      detailButton.y = container.stage.stageHeight;
+      container.addChild(detailButton);
+
+      detailButton.addEventListener(MouseEvent.CLICK, detailClickHandler);
+      detailButton.addEventListener(MouseEvent.MOUSE_OVER, detailOverHandler);
+      detailButton.addEventListener(MouseEvent.MOUSE_OUT, detailOutHandler);
+    }
+
+    private function detailOutHandler(event:MouseEvent):void
+    {
+      view.filters3d = [];
+    }
+
+    private function detailOverHandler(event:MouseEvent):void
+    {
+      view.filters3d = filters;
+    }
+
+    private function detailClickHandler(event:MouseEvent):void
+    {
+      if (!listener) {
+        return;
+      }
+      TweenLite.to(detailButton, 1, {y:container.stage.stageHeight});
+      listener.sceneDispatcher.dispatchEvent(new SceneEvent(SceneEvent.CHANGE_SCENE, 3));
     }
 
     private function initFilter():void
@@ -79,21 +144,39 @@ package org.pigtracer.lab.primitive
 
     public function show():void
     {
+      visible = true;
       for (var i:int = 0; i < N; i++) {
         var mesh:MeshWithData = meshList[i];
         var data:MeshData = mesh.data as MeshData;
         TweenLite.to(mesh.material, 0.5, {alpha:1});
         TweenLite.to(mesh, 0.5, {x:data.target.x, y:data.target.y, z:data.target.z, delay:data.delay + 0.8});
       }
+
     }
 
     public function hide():void
     {
+      for (var i:int = 0; i < N; i++) {
+        var mesh:MeshWithData = meshList[i];
+        var data:MeshData = mesh.data as MeshData;
+        TweenLite.to(mesh.material, 0.5, {alpha:0, delay:data.delay + 0.8});
+        TweenLite.to(mesh, 0.5, {x:data.origin.x, y:data.origin.y, z:data.origin.z, delay:data.delay + 0.8});
+      }
+      TweenLite.to(detailButton, 1, {y:container.stage.stageHeight});
+
+      timer.addEventListener(TimerEvent.TIMER_COMPLETE, hideCompleteHandler);
+      timer.reset();
+      timer.start();
+    }
+
+    private function hideCompleteHandler(event:TimerEvent):void
+    {
+      this.visible = false;
     }
 
     public function update(rateX:Number, rateY:Number):void
     {
-      rotationX += 10;
+      rotationX += 2;
     }
   }
 }

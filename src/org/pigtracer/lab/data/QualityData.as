@@ -36,7 +36,6 @@ package org.pigtracer.lab.data
 
 
     public const CN:Array = [];
-    public static const EN:Array;
 
     /**
      * Construct a <code>QualityData</code>.

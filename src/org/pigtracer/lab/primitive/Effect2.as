@@ -1,5 +1,6 @@
 package org.pigtracer.lab.primitive
 {
+  import org.pigtracer.lab.data.Effect2Pos;
   import away3d.paths.IPathSegment;
   import away3d.paths.QuadraticPath;
   import away3d.events.MouseEvent3D;
@@ -34,6 +35,8 @@ package org.pigtracer.lab.primitive
     private var view:View3D;
     private var container:DisplayObjectContainer;
     private var defaultMat:ColorMaterial;
+
+    private var effect2Data:Effect2Pos;
 
     public const N:int = 9;
     private var meshList:Vector.<MeshWithData> = new Vector.<MeshWithData>();
@@ -82,13 +85,15 @@ package org.pigtracer.lab.primitive
     }
 
     private function initCube():void {
+      effect2Data = new Effect2Pos();
+
       var geom:CubeGeometry = new CubeGeometry(30, 30, 30, 3, 3, 3);
       defaultMat = new ColorMaterial(0xCCCCCC);
       defaultMat.lightPicker = LightsManager.getInstance().mainMessageLights.lightPicker;
 
       for (var i:int = 0; i < N; i++) {
         var mesh:MeshWithData = new MeshWithData(geom, defaultMat);
-        var origin:Vector3D = genRan();
+        var origin:Vector3D = genRan(i);
         var target:Vector3D = origin.clone();
         target.y += 100;
         var data:MeshData = new MeshData(i, origin, target);
@@ -137,8 +142,9 @@ package org.pigtracer.lab.primitive
       return list[factor%3];
     }
 
-    private function genRan() : Vector3D {
-      return new Vector3D(800*Math.random() - 400, -50, 800*Math.random() - 400);
+    private function genRan(index:int) : Vector3D {
+      var pos:Array = effect2Data.getPos(index);
+      return new Vector3D(pos[0], -50, pos[1]);
     }
 
     public function show():void

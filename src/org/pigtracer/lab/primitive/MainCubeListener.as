@@ -1,4 +1,6 @@
 package org.pigtracer.lab.primitive {
+  import org.pigtracer.lab.events.SceneEvent;
+  import flash.events.EventDispatcher;
   import org.pigtracer.lab.interfaces.IEffect;
   import away3d.materials.ColorMaterial;
   import com.greensock.TweenLite;
@@ -56,7 +58,7 @@ package org.pigtracer.lab.primitive {
     }
 
 
-
+    public var sceneDispatcher:EventDispatcher = new EventDispatcher();
 
     private var meshMap:Dictionary = new Dictionary();
     private var container:ObjectContainer3D;
@@ -109,7 +111,7 @@ package org.pigtracer.lab.primitive {
 
       if (effectPointer) {
         effectPointer.hide();
-        if (currentIndex == 1) {
+        if (currentIndex == 1 || currentIndex == 2) {
           removeFromGroup(effectPointer as IUpdate);
         }
       }
@@ -132,6 +134,8 @@ package org.pigtracer.lab.primitive {
       var index:int = meshMap[mesh];
       currentIndex = index;
 
+      sceneDispatcher.dispatchEvent(new SceneEvent(SceneEvent.CHANGE_SCENE, index));
+
       switch (index) {
         case 0:
           effect1.show();
@@ -144,6 +148,7 @@ package org.pigtracer.lab.primitive {
         break;
         case 2:
           effect3.show();
+          enterFrameGroup.push(effect3);
           effectPointer = effect3;
         break;
       }
@@ -158,6 +163,7 @@ package org.pigtracer.lab.primitive {
       effect1 = effectList[0];
       effect2 = effectList[1];
       effect3 = effectList[2];
+      effect3.listener = this;
       effect3.y = 200;
     }
 

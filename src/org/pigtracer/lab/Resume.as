@@ -1,5 +1,7 @@
 package org.pigtracer.lab
 {
+  import org.pigtracer.lab.managers.SceneDetailManager;
+  import org.pigtracer.lab.managers.SubtitleManager;
   import away3d.entities.Entity;
   import org.pigtracer.lab.primitive.Effect3;
   import org.pigtracer.lab.primitive.Effect2;
@@ -48,7 +50,7 @@ package org.pigtracer.lab
       closeFlag.y = -100;
       addChild(closeFlag);
 
-      var effectList:Array = [new Effect1(), new Effect2(m, this, view), new Effect3(view)];
+      var effectList:Array = [new Effect1(), new Effect2(m, this, view), new Effect3(view, this)];
       const N:int = effectList.length;
       for (var i:int = 0; i < N; i++) {
         var effect:ObjectContainer3D = effectList[i];
@@ -56,7 +58,8 @@ package org.pigtracer.lab
       }
 
       var listener:MainCubeListener = new MainCubeListener(m.meshList, m, flags, closeFlag, enterFrameGroup, effectList);
-
+      var subManager:SubtitleManager = new SubtitleManager(this, listener.sceneDispatcher, closeFlag);
+      var detailManager:SceneDetailManager = new SceneDetailManager(view, listener.sceneDispatcher, enterFrameGroup, closeFlag, this);
     }
   }
 }
