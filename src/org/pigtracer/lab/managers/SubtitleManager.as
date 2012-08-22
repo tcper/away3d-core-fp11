@@ -65,6 +65,7 @@ package org.pigtracer.lab.managers
     {
       var index:int = event.index;
       if (index >= 3) {
+        TweenLite.to(lastSub, 0.5, {alpha:0});
         return;
       }
       showSubs(index+1);

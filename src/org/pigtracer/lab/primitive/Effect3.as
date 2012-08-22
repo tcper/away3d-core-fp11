@@ -26,7 +26,9 @@ package org.pigtracer.lab.primitive
     public function Effect3(view:View3D, container:DisplayObjectContainer) {
       this.container = container;
       this.view = view;
+      meshContainer = new ObjectContainer3D();
       super();
+      addChild(meshContainer);
       init();
     }
 
@@ -38,6 +40,8 @@ package org.pigtracer.lab.primitive
 
     private var view:View3D;
     private var detailButton:Sprite;
+
+    private var meshContainer:ObjectContainer3D;
 
     //----------------------------------
     //  listener
@@ -53,15 +57,31 @@ package org.pigtracer.lab.primitive
 
     private function sceneChangeHandler(event:SceneEvent):void
     {
+      if (event.index != 2) {
+        return;
+      }
       TweenLite.to(detailButton, 1, {y:container.stage.stageHeight - detailButton.height});
     }
 
     private function init():void
     {
       initCubes();
+      initRefCube();
       initFilter();
       initButtons();
       visible = false;
+    }
+
+    private function initRefCube():void
+    {
+      var geom:CubeGeometry = new CubeGeometry(30, 30, 30, 3, 3, 3);
+      for (var i:int = 0; i < N; i++) {
+        var mat:ColorMaterial = new ColorMaterial(0xFFFFFF*Math.random());
+        mat.lightPicker = LightsManager.getInstance().mainMessageLights.lightPicker;
+        var mesh:Mesh = new Mesh(geom, mat);
+        mesh.position = getRan3(i);
+        addChild(mesh);
+      }
     }
 
     private function initButtons():void
@@ -118,7 +138,7 @@ package org.pigtracer.lab.primitive
         mesh.addEventListener(MouseEvent3D.MOUSE_OUT, mouseOutHandler);
 
         mesh.data = data;
-        addChild(mesh);
+        meshContainer.addChild(mesh);
         meshList.push(mesh);
       }
     }
@@ -140,6 +160,9 @@ package org.pigtracer.lab.primitive
     }
     private function genRan2() : Vector3D {
       return new Vector3D(100*Math.random() - 50, 100*Math.random() - 50, 100*Math.random() - 50);
+    }
+    private function getRan3(i:int):Vector3D {
+      return new Vector3D(400*Math.random() - 200, i* 100 + 160, 400*Math.random() - 200);
     }
 
     public function show():void
@@ -176,7 +199,7 @@ package org.pigtracer.lab.primitive
 
     public function update(rateX:Number, rateY:Number):void
     {
-      rotationX += 2;
+      meshContainer.rotationX += 2;
     }
   }
 }

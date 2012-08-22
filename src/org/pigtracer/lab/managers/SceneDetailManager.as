@@ -32,6 +32,7 @@ package org.pigtracer.lab.managers
       this.closeFlag = closeFlag;
       this.enterframeGroup = enterframeGroup;
 
+      this.sceneDispatcher = sceneDispatcher;
       sceneDispatcher.addEventListener(SceneEvent.CHANGE_SCENE, sceneChangeHandler);
 
       var backBitmap:Scene3Bitmap = new Scene3Bitmap();
@@ -47,6 +48,7 @@ package org.pigtracer.lab.managers
     private var container:DisplayObjectContainer;
     private var enterframeGroup:Vector.<IUpdate>;
     private var tempTarget:Vector3D;
+    private var sceneDispatcher:EventDispatcher;
 
     private function showBack():void {
       TweenLite.to(backButton, 1, {y:0});
@@ -84,7 +86,7 @@ package org.pigtracer.lab.managers
 
     private function sceneChangeHandler(event:SceneEvent):void
     {
-
+      trace(event.index);
       if (event.index < 3) {
         return;
       }
@@ -102,11 +104,11 @@ package org.pigtracer.lab.managers
 
       closeFlag.show();
       hideBack();
+      sceneDispatcher.dispatchEvent(new SceneEvent(SceneEvent.CHANGE_SCENE, 2));
     }
 
     public function update(rateX:Number, rateY:Number):void
     {
-
     }
 
   }

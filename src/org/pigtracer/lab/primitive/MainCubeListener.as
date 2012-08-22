@@ -1,4 +1,6 @@
 package org.pigtracer.lab.primitive {
+  import flash.events.TimerEvent;
+  import flash.utils.Timer;
   import org.pigtracer.lab.events.SceneEvent;
   import flash.events.EventDispatcher;
   import org.pigtracer.lab.interfaces.IEffect;
@@ -46,7 +48,9 @@ package org.pigtracer.lab.primitive {
       }
 
       closeFlag.addEventListener(CloseEvent.CLOSE_SCENE, closeHandler);
+      meshEnableTimer.addEventListener(TimerEvent.TIMER_COMPLETE, meshEnableHandler);
     }
+
 
 
     public function disableMesh():void {
@@ -74,6 +78,8 @@ package org.pigtracer.lab.primitive {
 
     private var effectPointer:IEffect;
     private var currentIndex:int;
+
+    private var meshEnableTimer:Timer = new Timer(3000, 1);
 
     private function manipulateMesh(value:Boolean):void {
       const N:int = meshList.length;
@@ -105,16 +111,20 @@ package org.pigtracer.lab.primitive {
 
     private function closeHandler(event:CloseEvent):void
     {
-      enableMesh();
-      unlight();
-      flagManager.unshow();
-
+      meshEnableTimer.reset();
+      meshEnableTimer.start();
       if (effectPointer) {
         effectPointer.hide();
         if (currentIndex == 1 || currentIndex == 2) {
           removeFromGroup(effectPointer as IUpdate);
         }
       }
+    }
+    private function meshEnableHandler(event:TimerEvent):void
+    {
+      enableMesh();
+      unlight();
+      flagManager.unshow();
     }
 
     private function meshMouseOutHandler(event:MouseEvent3D):void {

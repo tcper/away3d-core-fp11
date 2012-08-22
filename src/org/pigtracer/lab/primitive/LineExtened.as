@@ -28,13 +28,12 @@ package org.pigtracer.lab.primitive
 
     use namespace arcane;
 
-    public function LineExtened(source:Vector.<Vector3D>, t:Number = 0,
+    public function LineExtened(source:Vector.<Vector3D>, ref_t:Number = 0,
                                 startColor:uint = 0xFF0000, endColor:uint = 0xFF0000,
                                 startThick:Number = 1, endThick:Number = 1) {
       _source = source;
       _numVectices = _source.length - 2;
       //for 100 point -> 99 connects
-      _t = t;
 
       _startColor = startColor;
       var temp:int = endColor - startColor;
@@ -58,6 +57,7 @@ package org.pigtracer.lab.primitive
       thickOffset = (endThick - _startThick) / _numVectices;
 
       init();
+      this.t = ref_t;
     }
 
     private function init():void {
