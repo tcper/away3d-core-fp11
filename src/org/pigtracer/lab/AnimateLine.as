@@ -1,4 +1,6 @@
 package org.pigtracer.lab {
+  import flash.events.Event;
+  import com.bit101.components.PushButton;
   import com.greensock.easing.Quint;
   import com.greensock.TweenLite;
   import org.pigtracer.lab.primitive.LineExtened;
@@ -14,6 +16,22 @@ package org.pigtracer.lab {
   public class AnimateLine extends BaseScene {
     public function AnimateLine() {
       super();
+
+      initUI();
+    }
+
+    private function initUI():void
+    {
+      new PushButton(this, 0, 0, "animation", clickHandler);
+    }
+
+    private function clickHandler(event:Event):void
+    {
+      if (line.t > 0) {
+        TweenLite.to(line, 1, {t:0, ease:Quint.easeIn});
+      } else {
+        TweenLite.to(line, 1, {t:1, ease:Quint.easeIn});
+      }
     }
     private var line:LineExtened;
 

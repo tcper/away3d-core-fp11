@@ -50,7 +50,7 @@ package org.pigtracer.lab
       closeFlag.y = -100;
       addChild(closeFlag);
 
-      var effectList:Array = [new Effect1(), new Effect2(m, this, view), new Effect3(view, this)];
+      var effectList:Array = [new Effect1(view, this), new Effect2(m, this, view), new Effect3(view, this)];
       const N:int = effectList.length;
       for (var i:int = 0; i < N; i++) {
         var effect:ObjectContainer3D = effectList[i];

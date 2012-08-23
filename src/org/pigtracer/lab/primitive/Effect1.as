@@ -1,4 +1,9 @@
 package org.pigtracer.lab.primitive {
+  import flash.geom.Matrix3D;
+  import org.pigtracer.lab.data.Effect1Bitmap;
+  import flash.display.Sprite;
+  import flash.display.DisplayObjectContainer;
+  import away3d.containers.View3D;
   import org.pigtracer.lab.interfaces.IEffect;
   import com.greensock.TweenLite;
   import away3d.paths.IPath;
@@ -11,13 +16,22 @@ package org.pigtracer.lab.primitive {
    * @author loki
    */
   public class Effect1 extends ObjectContainer3D implements IUpdate, IEffect{
-    public function Effect1() {
+    public function Effect1(view:View3D, container:DisplayObjectContainer) {
+      this.view = view;
+      this.container = container;
       super();
       init();
     }
 
+    private var view:View3D;
+    private var container:DisplayObjectContainer;
+
     private var lineList:Array = [];
     private var tweenList:Array = [];
+
+    private var image:Sprite;
+    private var resourceFactory:Effect1Bitmap;
+
 
     public function show():void {
       const N:int = lineList.length;
@@ -25,23 +39,25 @@ package org.pigtracer.lab.primitive {
         var line:LineExtened = lineList[i];
         var tweenLite:TweenLite = tweenList[i];
         if (!tweenLite) {
-          tweenList.push(TweenLite.to(line, 0.5, {t:1, delay:i/10}));
+          tweenList.push(TweenLite.to(line, 0.5, {t:1, delay:i/10, onComplete:addLabel, onCompleteParams:[i]}));
         } else {
           tweenLite.play();
         }
       }
+      TweenLite.to(image, 1, {alpha:1});
     }
 
     public function hide():void {
       const N:int = lineList.length;
-      if (N <= 0) {
-        return;
-      }
 
       for (var i:int = 0; i < N; i++) {
         var line:LineExtened = lineList[i];
         tweenList.push(TweenLite.to(line, 0.5, {t:0, delay:i/10}));
       }
+      TweenLite.to(image, 1, {alpha:0});
+    }
+
+    private function addLabel(index:int):void {
     }
 
 
@@ -59,10 +75,21 @@ package org.pigtracer.lab.primitive {
         var color:uint = getColor();
 
         var line:LineExtened = new LineExtened(newList, 0, color, color, 5, 5);
-
         lineList.push(line);
         addChild(line);
       }
+      initPlane();
+    }
+
+    private function initPlane():void
+    {
+      resourceFactory = new Effect1Bitmap();
+      image = resourceFactory.getImage();
+      image.x = container.width/2;
+      image.y = container.height/2;
+      image.alpha = 0;
+      container.addChild(image);
+      //TweenLite.to(image, 1, {alpha:1});
     }
 
     private function getColor():uint {
@@ -96,7 +123,7 @@ package org.pigtracer.lab.primitive {
     }
 
     public function update(rateX:Number, rateY:Number):void {
-      this.rotationX += 10;
+
     }
   }
 }

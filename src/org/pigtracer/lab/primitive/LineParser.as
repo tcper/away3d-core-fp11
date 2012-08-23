@@ -52,7 +52,7 @@ package org.pigtracer.lab.primitive
       {
         case "v":
           var v:Vector3D = new Vector3D(parseFloat(trunk[1]), parseFloat(trunk[2]), -parseFloat(trunk[3]));
-          v.scaleBy(1000);
+          v.scaleBy(100);
           source.push(v);
           break;
       }

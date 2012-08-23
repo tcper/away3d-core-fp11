@@ -1,5 +1,6 @@
 package org.pigtracer.lab.managers
 {
+  import org.pigtracer.lab.primitive.Effect4;
   import org.pigtracer.lab.primitive.CameraPos;
   import flash.geom.Vector3D;
   import flash.display.DisplayObjectContainer;
@@ -30,7 +31,11 @@ package org.pigtracer.lab.managers
       this.view = view;
       this.container = container;
       this.closeFlag = closeFlag;
-      this.enterframeGroup = enterframeGroup;
+      this.enterframeGroup = enterFrameGroup;
+
+      effect4 = new Effect4(view, container);
+      effect4.position = CameraPos.S4;
+      view.scene.addChild(effect4);
 
       this.sceneDispatcher = sceneDispatcher;
       sceneDispatcher.addEventListener(SceneEvent.CHANGE_SCENE, sceneChangeHandler);
@@ -50,6 +55,8 @@ package org.pigtracer.lab.managers
     private var tempTarget:Vector3D;
     private var sceneDispatcher:EventDispatcher;
 
+    private var effect4:Effect4;
+
     private function showBack():void {
       TweenLite.to(backButton, 1, {y:0});
     }
@@ -57,12 +64,13 @@ package org.pigtracer.lab.managers
       TweenLite.to(backButton, 1, {y:-backButton.height});
     }
     private function removeFromGroup(target:IUpdate):void {
-      const N:int = enterframeGroup.length;
-      for (var i:int = 0; i < N; i++) {
-        var compare:IUpdate = enterframeGroup[i];
+
+      var index:int = 0;
+      for each (var compare:IUpdate in enterframeGroup) {
         if (compare == target) {
-          enterframeGroup.splice( i, 1 );
+          enterframeGroup.splice( index, 1 );
         }
+        index++;
       }
     }
     private function moveCamera():void
@@ -70,6 +78,9 @@ package org.pigtracer.lab.managers
       tempTarget = CameraPos.MAIN_SCENE_LOOKAT.clone();
       var target:Vector3D = CameraPos.S1_LOOKAT;
       TweenLite.to(tempTarget, 1, {x:target.x, y:target.y, z:target.z, onUpdate:updateCamera});
+
+      var camera:Camera3D = view.camera;
+      TweenLite.to(camera, 1, {y:CameraPos.S1.y, z:CameraPos.S1.z, x:CameraPos.S1.x});
       //enterframeGroup.push(this);
     }
     private function moveCameraBack():void
@@ -77,6 +88,9 @@ package org.pigtracer.lab.managers
       tempTarget = CameraPos.S1_LOOKAT.clone();
       var target:Vector3D = CameraPos.MAIN_SCENE_LOOKAT;
       TweenLite.to(tempTarget, 1, {x:target.x, y:target.y, z:target.z, onUpdate:updateCamera});
+
+      var camera:Camera3D = view.camera;
+      TweenLite.to(camera, 1, {y:CameraPos.MAIN_SCENE.y, x:CameraPos.MAIN_SCENE.x, z:CameraPos.MAIN_SCENE.z});
     }
 
     private function updateCamera():void {
@@ -86,19 +100,21 @@ package org.pigtracer.lab.managers
 
     private function sceneChangeHandler(event:SceneEvent):void
     {
-      trace(event.index);
       if (event.index < 3) {
         return;
       }
-
+      enterframeGroup.push(effect4);
       moveCamera();
-
+      effect4.show();
       closeFlag.hide();
       showBack();
     }
 
     private function backClickHandler(event:MouseEvent):void
     {
+
+      effect4.hide();
+      removeFromGroup(effect4);
 
       moveCameraBack();
 

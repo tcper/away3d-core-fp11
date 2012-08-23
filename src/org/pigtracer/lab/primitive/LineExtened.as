@@ -92,7 +92,7 @@ package org.pigtracer.lab.primitive
     }
 
     private function removeIndex(index:int):void {
-      const N:int = addedList[i];
+      const N:int = addedList.length;
       for (var i:int = 0; i < N; i++) {
         var compare:int = addedList[i];
         if (compare == index) {
@@ -119,6 +119,7 @@ package org.pigtracer.lab.primitive
       var targetIndex:int = _numVectices * _t;
 
       //trace("[LineExtened/t]", value, _numVectices, lastIndex, targetIndex);
+      //trace("[LineExtened/t]", addedList);
 
       var i:int = 0;
       var segment:Segment;
