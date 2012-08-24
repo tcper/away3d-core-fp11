@@ -1,5 +1,6 @@
 package org.pigtracer.lab
 {
+  import away3d.debug.AwayStats;
   import org.pigtracer.lab.managers.SceneDetailManager;
   import org.pigtracer.lab.managers.SubtitleManager;
   import away3d.entities.Entity;
@@ -60,6 +61,9 @@ package org.pigtracer.lab
       var listener:MainCubeListener = new MainCubeListener(m.meshList, m, flags, closeFlag, enterFrameGroup, effectList);
       var subManager:SubtitleManager = new SubtitleManager(this, listener.sceneDispatcher, closeFlag);
       var detailManager:SceneDetailManager = new SceneDetailManager(view, listener.sceneDispatcher, enterFrameGroup, closeFlag, this);
+
+      var stat:AwayStats = new AwayStats(view);
+      addChild(stat);
     }
   }
 }

@@ -230,7 +230,6 @@ package org.pigtracer.lab.primitive
       pointLight.fallOff = 1000;
       pointLight.ambient = 0xa0a0c0;
       pointLight.ambient = .3;
-      addChild(pointLight);
     }
 
     private function initMeshes():void
@@ -298,6 +297,7 @@ package org.pigtracer.lab.primitive
       TweenLite.to(goButton, 1, {y:0});
       currentScene = -1;
       changeSceneLabels(0);
+      addChild(pointLight);
     }
 
     public function hide():void
@@ -308,6 +308,7 @@ package org.pigtracer.lab.primitive
         labelVisible(labelList, false);
       }
       disableAllLines();
+      removeChild(pointLight);
     }
 
     public function update(rateX:Number, rateY:Number):void
