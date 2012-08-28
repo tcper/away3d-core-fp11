@@ -1,18 +1,17 @@
-package org.pigtracer.lab
+package org.pigtracer.lab.tests
 {
-  import away3d.primitives.data.Segment;
-  import away3d.paths.QuadraticPath;
   import away3d.core.base.data.Vertex;
-  import org.pigtracer.lab.primitive.Path;
   import away3d.paths.CubicPath;
-  import flash.events.Event;
+  import away3d.paths.QuadraticPath;
+  import away3d.primitives.WireframeTetrahedron;
+  import away3d.primitives.data.Segment;
+  import com.bit101.components.Component;
   import com.bit101.components.PushButton;
   import com.bit101.utils.MinimalConfigurator;
-  import com.bit101.components.Component;
+  import flash.events.Event;
   import flash.geom.Vector3D;
   import org.pigtracer.lab.primitive.Line;
-  import away3d.primitives.WireframeTetrahedron;
-  import org.pigtracer.lab.BaseScene;
+  import org.pigtracer.lab.primitive.Path;
 
   /**
    * @author loki

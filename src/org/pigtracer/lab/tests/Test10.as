@@ -1,26 +1,25 @@
-package org.pigtracer.lab
+package org.pigtracer.lab.tests
 {
-  import org.pigtracer.lab.primitive.Path;
-  import org.pigtracer.lab.primitive.LineParser;
-  import flash.geom.Matrix3D;
+  import away3d.animators.PathAnimator;
+  import away3d.containers.ObjectContainer3D;
+  import away3d.entities.Mesh;
+  import away3d.materials.ColorMaterial;
+  import away3d.materials.TextureMaterial;
+  import away3d.materials.methods.HardShadowMapMethod;
+  import away3d.paths.QuadraticPath;
+  import away3d.primitives.CubeGeometry;
+  import away3d.primitives.PlaneGeometry;
+  import away3d.primitives.WireframeSphere;
+  import away3d.textures.BitmapTexture;
+  import com.greensock.TweenLite;
+  import flash.display.BitmapData;
   import flash.display.Graphics;
   import flash.display.Sprite;
-  import away3d.containers.ObjectContainer3D;
-  import com.greensock.TweenLite;
   import flash.events.Event;
-  import away3d.animators.PathAnimator;
-  import away3d.paths.QuadraticPath;
-  import away3d.materials.methods.HardShadowMapMethod;
-  import away3d.materials.TextureMaterial;
-  import flash.display.BitmapData;
-  import away3d.textures.BitmapTexture;
-  import away3d.primitives.PlaneGeometry;
+  import flash.geom.Matrix3D;
   import flash.geom.Vector3D;
-  import away3d.primitives.WireframeSphere;
-  import away3d.materials.ColorMaterial;
-  import away3d.entities.Mesh;
-  import away3d.primitives.CubeGeometry;
-  import org.pigtracer.lab.BaseScene;
+  import org.pigtracer.lab.primitive.LineParser;
+  import org.pigtracer.lab.primitive.Path;
 
   /**
    * @author loki

@@ -1,4 +1,4 @@
-package org.pigtracer.lab {
+package org.pigtracer.lab.tests {
   import away3d.animators.PathAnimator;
   import away3d.controllers.SpringController;
   import away3d.debug.Trident;

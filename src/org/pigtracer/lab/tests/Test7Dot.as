@@ -1,17 +1,17 @@
-package org.pigtracer.lab {
-  import flash.geom.Matrix3D;
+package org.pigtracer.lab.tests {
   import away3d.core.base.Geometry;
-  import flash.geom.Vector3D;
-  import flash.events.Event;
-  import away3d.materials.TextureMaterial;
   import away3d.entities.Mesh;
+  import away3d.materials.TextureMaterial;
   import away3d.primitives.PlaneGeometry;
   import away3d.textures.BitmapTexture;
   import flash.display.Bitmap;
   import flash.display.BitmapData;
   import flash.display.Graphics;
   import flash.display.Shape;
+  import flash.events.Event;
   import flash.geom.Matrix;
+  import flash.geom.Matrix3D;
+  import flash.geom.Vector3D;
 
   /**
    * @author loki

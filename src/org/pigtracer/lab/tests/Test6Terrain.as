@@ -1,23 +1,23 @@
-package org.pigtracer.lab
+package org.pigtracer.lab.tests
 {
   import away3d.debug.Debug;
-  import away3d.utils.Cast;
+  import away3d.extrusions.Elevation;
   import away3d.materials.TextureMaterial;
   import away3d.textures.BitmapTexture;
-  import away3d.extrusions.Elevation;
-  import flash.geom.Point;
+  import away3d.utils.Cast;
+  import com.adobe.images.PNGEncoder;
   import flash.display.Bitmap;
   import flash.display.BitmapData;
-
-  import com.adobe.images.PNGEncoder;
-
-  import flash.events.Event;
   import flash.display.Loader;
-  import flash.utils.ByteArray;
-  import flash.filesystem.FileStream;
-  import flash.filesystem.FileMode;
-  import flash.filesystem.File;
   import flash.display.Sprite;
+  import flash.events.Event;
+  import flash.filesystem.File;
+  import flash.filesystem.FileMode;
+  import flash.filesystem.FileStream;
+  import flash.geom.Point;
+  import flash.utils.ByteArray;
+
+
 
   /**
    * @author loki

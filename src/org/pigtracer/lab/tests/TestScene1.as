@@ -1,8 +1,8 @@
-package org.pigtracer.lab {
-  import flash.events.Event;
-  import com.bit101.components.PushButton;
+package org.pigtracer.lab.tests {
   import away3d.materials.methods.HardShadowMapMethod;
-  import org.pigtracer.lab.BaseScene;
+  import com.bit101.components.PushButton;
+  import flash.events.Event;
+  import org.pigtracer.lab.MessageScene;
 
   /**
    * @author loki

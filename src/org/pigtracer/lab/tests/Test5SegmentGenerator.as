@@ -1,24 +1,24 @@
-package org.pigtracer.lab {
-  import flash.utils.ByteArray;
-  import flash.events.Event;
-  import com.bit101.utils.MinimalConfigurator;
-  import com.bit101.components.Component;
-  import away3d.materials.utils.WireframeMapGenerator;
-  import away3d.loaders.parsers.Parsers;
-  import flash.net.URLRequest;
-  import away3d.loaders.Loader3D;
+package org.pigtracer.lab.tests {
   import away3d.core.pick.PickingColliderType;
-  import away3d.library.assets.AssetType;
-  import away3d.materials.TextureMaterial;
-  import away3d.textures.BitmapTexture;
-  import flash.display.BitmapData;
+  import away3d.entities.Mesh;
   import away3d.events.AssetEvent;
+  import away3d.library.assets.AssetType;
+  import away3d.loaders.Loader3D;
   import away3d.loaders.parsers.OBJParser;
+  import away3d.loaders.parsers.Parsers;
+  import away3d.materials.ColorMaterial;
+  import away3d.materials.TextureMaterial;
+  import away3d.materials.utils.WireframeMapGenerator;
+  import away3d.primitives.CubeGeometry;
+  import away3d.textures.BitmapTexture;
+  import com.bit101.components.Component;
+  import com.bit101.utils.MinimalConfigurator;
+  import flash.display.BitmapData;
+  import flash.events.Event;
+  import flash.net.URLRequest;
+  import flash.utils.ByteArray;
   import org.pigtracer.lab.primitive.WireframeMesh;
   import org.pigtracer.lab.utils.SegmentMapGenerator;
-  import away3d.entities.Mesh;
-  import away3d.materials.ColorMaterial;
-  import away3d.primitives.CubeGeometry;
 
   /**
    * @author loki

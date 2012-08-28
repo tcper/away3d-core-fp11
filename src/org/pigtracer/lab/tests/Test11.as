@@ -1,27 +1,27 @@
-package org.pigtracer.lab
+package org.pigtracer.lab.tests
 {
-  import away3d.materials.lightpickers.StaticLightPicker;
-  import away3d.lights.PointLight;
-  import org.pigtracer.lab.primitive.Line;
-  import away3d.paths.IPathSegment;
   import away3d.animators.PathAnimator;
   import away3d.containers.ObjectContainer3D;
   import away3d.entities.Mesh;
+  import away3d.lights.PointLight;
   import away3d.materials.TextureMaterial;
+  import away3d.materials.lightpickers.StaticLightPicker;
   import away3d.materials.methods.HardShadowMapMethod;
+  import away3d.paths.IPathSegment;
   import away3d.paths.QuadraticPath;
   import away3d.primitives.PlaneGeometry;
   import away3d.textures.BitmapTexture;
-
   import com.greensock.TweenLite;
-
-  import org.pigtracer.lab.primitive.CubeUnion;
-  import org.pigtracer.lab.primitive.LineParser;
-  import org.pigtracer.lab.utils.CameraUtil;
-
   import flash.display.BitmapData;
   import flash.events.Event;
   import flash.geom.Vector3D;
+  import org.pigtracer.lab.primitive.CubeUnion;
+  import org.pigtracer.lab.primitive.Line;
+  import org.pigtracer.lab.primitive.LineParser;
+  import org.pigtracer.lab.utils.CameraUtil;
+
+
+
 
   /**
    * @author loki

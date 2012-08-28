@@ -1,14 +1,14 @@
 package org.pigtracer.lab {
-  import flash.events.Event;
-  import com.bit101.components.PushButton;
-  import com.greensock.easing.Quint;
-  import com.greensock.TweenLite;
-  import org.pigtracer.lab.primitive.LineExtened;
-  import org.pigtracer.lab.primitive.Line;
   import away3d.paths.IPathSegment;
   import away3d.paths.QuadraticPath;
+  import com.bit101.components.PushButton;
+  import com.greensock.TweenLite;
+  import com.greensock.easing.Quint;
+  import flash.events.Event;
   import flash.geom.Vector3D;
-  import org.pigtracer.lab.BaseScene;
+  import org.pigtracer.lab.primitive.Line;
+  import org.pigtracer.lab.primitive.LineExtened;
+  import org.pigtracer.lab.tests.BaseScene;
 
   /**
    * @author loki

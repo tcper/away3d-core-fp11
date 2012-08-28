@@ -1,4 +1,4 @@
-package org.pigtracer.lab
+package org.pigtracer.lab.tests
 {
   import flash.geom.Matrix3D;
   import flash.geom.Vector3D;

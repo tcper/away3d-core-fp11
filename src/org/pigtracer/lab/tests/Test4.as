@@ -1,27 +1,26 @@
-package org.pigtracer.lab
+package org.pigtracer.lab.tests
 {
-  import away3d.materials.SegmentMaterial;
-  import away3d.materials.TextureMaterial;
-  import away3d.textures.BitmapTexture;
-  import flash.display.BitmapData;
   import away3d.core.pick.PickingColliderType;
-  import away3d.library.assets.AssetType;
+  import away3d.entities.Mesh;
   import away3d.events.AssetEvent;
+  import away3d.filters.BloomFilter3D;
+  import away3d.library.assets.AssetType;
   import away3d.loaders.parsers.OBJParser;
   import away3d.loaders.parsers.Parsers;
-  import away3d.filters.BloomFilter3D;
-  import away3d.primitives.PlaneGeometry;
   import away3d.materials.ColorMaterial;
-  import away3d.entities.Mesh;
+  import away3d.materials.SegmentMaterial;
+  import away3d.materials.TextureMaterial;
   import away3d.primitives.CubeGeometry;
-  import flash.events.TimerEvent;
-  import flash.utils.Timer;
-  import flash.events.Event;
-  import com.bit101.utils.MinimalConfigurator;
+  import away3d.primitives.PlaneGeometry;
+  import away3d.textures.BitmapTexture;
   import com.bit101.components.Component;
+  import com.bit101.utils.MinimalConfigurator;
+  import flash.display.BitmapData;
+  import flash.events.Event;
+  import flash.events.TimerEvent;
   import flash.geom.Vector3D;
+  import flash.utils.Timer;
   import org.pigtracer.lab.primitive.Line;
-  import org.pigtracer.lab.BaseScene;
 
   /**
    * @author loki

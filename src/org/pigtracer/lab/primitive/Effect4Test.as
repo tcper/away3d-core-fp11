@@ -1,8 +1,8 @@
 package org.pigtracer.lab.primitive
 {
-  import flash.geom.Vector3D;
   import flash.events.Event;
-  import org.pigtracer.lab.BaseScene;
+  import flash.geom.Vector3D;
+  import org.pigtracer.lab.tests.BaseScene;
 
   /**
    * @author loki

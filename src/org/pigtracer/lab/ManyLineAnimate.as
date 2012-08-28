@@ -1,22 +1,23 @@
 package org.pigtracer.lab {
-  import away3d.materials.methods.HardShadowMapMethod;
   import away3d.entities.Mesh;
   import away3d.materials.TextureMaterial;
-  import away3d.textures.BitmapTexture;
-  import flash.display.BitmapData;
-  import away3d.primitives.PlaneGeometry;
-  import flash.events.Event;
+  import away3d.materials.methods.HardShadowMapMethod;
   import away3d.paths.CubicPath;
   import away3d.paths.IPath;
   import away3d.paths.IPathSegment;
   import away3d.paths.QuadraticPath;
-
+  import away3d.primitives.PlaneGeometry;
+  import away3d.textures.BitmapTexture;
   import com.greensock.TweenLite;
   import com.greensock.easing.Quint;
-
-  import org.pigtracer.lab.primitive.LineExtened;
-
+  import flash.display.BitmapData;
+  import flash.events.Event;
   import flash.geom.Vector3D;
+  import org.pigtracer.lab.primitive.LineExtened;
+  import org.pigtracer.lab.tests.BaseScene;
+
+
+
 
   /**
    * @author loki

@@ -1,24 +1,24 @@
 package org.pigtracer.lab {
-  import com.greensock.TweenLite;
   import away3d.animators.PathAnimator;
-  import flash.geom.Vector3D;
+  import away3d.entities.Mesh;
+  import away3d.lights.PointLight;
+  import away3d.materials.lightpickers.StaticLightPicker;
+  import away3d.materials.methods.HardShadowMapMethod;
   import away3d.paths.QuadraticPath;
   import away3d.primitives.WireframeSphere;
-  import away3d.materials.lightpickers.StaticLightPicker;
-  import away3d.lights.PointLight;
-  import flash.display.Graphics;
-  import flash.display.Sprite;
-  import away3d.entities.Mesh;
   import away3d.textures.BitmapTexture;
+  import com.bit101.components.PushButton;
+  import com.greensock.TweenLite;
+  import flash.display.BitmapData;
   import flash.display.GradientType;
-  import flash.geom.Matrix;
+  import flash.display.Graphics;
   import flash.display.GraphicsGradientFill;
   import flash.display.Shape;
-  import flash.display.BitmapData;
+  import flash.display.Sprite;
   import flash.events.Event;
-  import com.bit101.components.PushButton;
-  import away3d.materials.methods.HardShadowMapMethod;
-  import org.pigtracer.lab.BaseScene;
+  import flash.geom.Matrix;
+  import flash.geom.Vector3D;
+  import org.pigtracer.lab.tests.BaseScene;
 
   /**
    * @author loki

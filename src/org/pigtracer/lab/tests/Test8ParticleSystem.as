@@ -1,12 +1,11 @@
-package org.pigtracer.lab
+package org.pigtracer.lab.tests
 {
-  import flash.events.Event;
   import away3d.entities.Mesh;
-  import flash.geom.Point;
   import flash.display.Bitmap;
   import flash.display.BitmapData;
+  import flash.events.Event;
+  import flash.geom.Point;
   import org.pigtracer.lab.primitive.DotManager;
-  import org.pigtracer.lab.BaseScene;
 
   /**
    * @author loki
