@@ -14,7 +14,7 @@ package org.pigtracer.lab.primitive
    */
   public class CurveWithImage extends ObjectContainer3D
   {
-    [Embed(source="../line.obj", mimeType="application/octet-stream")]
+    [Embed(source="../tests/line.obj", mimeType="application/octet-stream")]
     private var embeddedClass : Class;
 
 

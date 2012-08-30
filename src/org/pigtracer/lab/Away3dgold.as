@@ -379,7 +379,7 @@ package org.pigtracer.lab {
     private var distanceIncrement:Number = 0;
 
     // Assets.
-    [Embed(source="head.obj", mimeType="application/octet-stream")]
+    [Embed(source="tests/head.obj", mimeType="application/octet-stream")]
     private var HeadAsset:Class;
 
     private const PAINT_TEXTURE_SIZE:uint = 1024;
