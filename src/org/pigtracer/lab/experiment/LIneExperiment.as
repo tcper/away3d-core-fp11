@@ -86,7 +86,7 @@ package org.pigtracer.lab.experiment
       for (var i:int = currentStartIndex; i < currentEndIndex; i++) {
         addSegment(_segmentList[i]);
       }
-      removeSegment(_segmentList[currentEndIndex-1]);
+      removeSegment(_segmentList[0]);
     }
 
     private function updateSegments():void {

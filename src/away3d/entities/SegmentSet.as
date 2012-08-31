@@ -87,7 +87,6 @@
       var index:uint = segment.index;
       var t:Number = segment.thickness;
 
-
       _vertices[index++] = startX;
       _vertices[index++] = startY;
       _vertices[index++] = startZ;
@@ -154,9 +153,13 @@
     public function removeSegment( segment:Segment ):void
     {
       //to do, add support curve indices/offset
+
+      trace("[SegmentSet/removeSegment]", _indices.length, _vertices.length);
+
       var index:uint;
       for( var i:uint = 0; i < _segments.length; ++i ) {
         if( _segments[i] == segment ) {
+          trace("[SegmentSet/removeSegment] ==");
           segment.segmentsBase = null;
           _segments.splice( i, 1 );
           removeSegmentByIndex( segment.indiceIndex );
@@ -168,6 +171,9 @@
           index += 6;
         }
       }
+
+      trace("[SegmentSet/removeSegment]", _indices.length, _vertices.length);
+
       _vertexBufferDirty = true;
       _indexBufferDirty = true;
     }
