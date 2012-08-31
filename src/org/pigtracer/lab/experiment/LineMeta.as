@@ -77,7 +77,7 @@ package org.pigtracer.lab.experiment
     /**
      * Construct a <code>LineMeta</code>.
      */
-    public function LineMeta(source:Vector.<Vector3D>, start_t_ref:Number = 0, end_t_ref:Number = 0,
+    public function LineMeta(source:Vector.<Vector3D>, start_t_ref:Number = 0, end_t_ref:Number = 1,
                             startColor:uint = 0xFF0000, endColor:uint = 0xFF0000,
                             startThick:Number = 1, endThick:Number = 1) {
       _source = source;

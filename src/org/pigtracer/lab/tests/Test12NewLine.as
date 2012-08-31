@@ -1,5 +1,10 @@
 package org.pigtracer.lab.tests
 {
+  import com.bit101.components.HRangeSlider;
+  import com.bit101.components.HUISlider;
+  import flash.events.Event;
+  import com.bit101.utils.MinimalConfigurator;
+  import com.bit101.components.Component;
   import org.pigtracer.lab.experiment.LIneExperiment;
   import org.pigtracer.lab.experiment.LineMeta;
   import away3d.paths.IPathSegment;
@@ -17,9 +22,33 @@ package org.pigtracer.lab.tests
       super();
       initUI();
     }
+    private var config:MinimalConfigurator;
+    private var lineExp:LIneExperiment;
 
     private function initUI():void
     {
+      Component.initStage(stage);
+
+      /*var xml:XML = <comps>
+                      <HUISlider id="slider" event="change:onChange" />
+                    </comps>;
+
+      config = new MinimalConfigurator(this);
+      config.parseXML(xml);*/
+
+      new HRangeSlider(this, 0, 0, onChange);
+    }
+
+    public function onChange(event:Event):void {
+      var comp:HRangeSlider = event.target as HRangeSlider;
+      var low:Number = comp.lowValue/100;
+      var high:Number = comp.highValue/100;
+      changeLine(low, high);
+    }
+
+    private function changeLine(low:Number, high:Number):void{
+      lineExp.startT = low;
+      lineExp.endT = high;
     }
 
     override protected function initObjects():void
@@ -40,7 +69,7 @@ package org.pigtracer.lab.tests
       }
 
       var data:LineMeta = new LineMeta(newList);
-      var lineExp:LIneExperiment = new LIneExperiment(data);
+      lineExp = new LIneExperiment(data);
       scene.addChild(lineExp);
     }
 
