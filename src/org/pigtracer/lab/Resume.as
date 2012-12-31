@@ -62,8 +62,8 @@ package org.pigtracer.lab
       var subManager:SubtitleManager = new SubtitleManager(this, listener.sceneDispatcher, closeFlag);
       var detailManager:SceneDetailManager = new SceneDetailManager(view, listener.sceneDispatcher, enterFrameGroup, closeFlag, this);
 
-      var stat:AwayStats = new AwayStats(view);
-      addChild(stat);
+//      var stat:AwayStats = new AwayStats(view);
+//      addChild(stat);
     }
   }
 }
